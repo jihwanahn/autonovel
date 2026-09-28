@@ -64,23 +64,22 @@ FORMAT THE OUTPUT AS CANON.MD with these categories:
 ## Timeline
 - Dated events, ages, durations
 
-## Magic System Rules
-- Hard rules of Tonal Law (intervals, costs, limitations)
-- Cass's gift specifics
+## Rules of the World / Magic / Science
+- Hard rules of the core speculative element, magic, or technology (costs, limitations, consequences)
+- Protagonist ability specifics
 
 ## Character Facts
 - Ages, physical descriptions, habits, relationships
 - One entry per fact (not paragraphs)
 
 ## Political / Factional
-- Who controls what, alliances, conflicts, contracts
+- Who controls what, alliances, conflicts, factions
 
 ## Cultural
-- Customs, taboos, laws, festivals, food, clothing
+- Customs, taboos, laws, rituals, food, clothing
 
-## Established In-Story
-- Events that have already happened in the story's past
-- The Perin contract, the Expansion Wars, etc.
+## Established In-Story Backstory
+- Concrete historical events that have already happened in the story's past
 
 RULES:
 - One fact per bullet point. Short. Specific. Checkable.
