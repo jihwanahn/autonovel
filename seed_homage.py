@@ -90,21 +90,30 @@ SAFE ABSTRACTION CHECK: PASSED (No proper nouns, characters, or specific lore co
 """)
         return results
 
-    genre_instruction = (
-        f"TARGET GENRE: {genre}\n"
-        f"CRITICAL GENRE RULE: The story MUST belong strictly to the '{genre}' genre. "
-        f"If the genre is non-supernatural (e.g. 현대 미스터리, 스릴러, 일반 드라마), do NOT introduce magic or fantasy elements; "
-        f"if the genre is 무협(Martial Arts), focus on martial sects, internal energy (내공), Jianghu chivalry, and realistic combat; "
-        f"if SF, extrapolate technology and society."
-        if genre else "TARGET GENRE: Harmonize with the reference materials naturally."
-    )
+    if genre:
+        genre_instruction = (
+            f"TARGET GENRE: {genre}\n"
+            f"CRITICAL GENRE RULE: The story MUST belong strictly to the '{genre}' genre. "
+            f"If the genre is non-supernatural (e.g. 현대 미스터리, 스릴러, 일반 드라마), do NOT introduce magic or fantasy elements; "
+            f"if the genre is 무협(Martial Arts), focus on martial sects, internal energy (내공), Jianghu chivalry, and realistic combat; "
+            f"if SF, extrapolate technology and society."
+        )
+    else:
+        genre_instruction = (
+            f"TARGET GENRE STRATEGY (AUTONOMOUS BEST-FIT RECOMMENDATION):\n"
+            f"Do NOT default to generic high fantasy! Instead, deeply analyze the creative friction, chemistry, and tone between "
+            f"the Voice DNA ('{voice_ref}') and Plot DNA ('{plot_ref}').\n"
+            f"Autonomously determine the single most compelling, commercially fresh genre that brings out the absolute best in this combination "
+            f"(for example: pairing a cynical martial arts monologue with a cozy episodic shop plot produces '강호 일상 무협(Cozy Wuxia)' or '현대 블랙코미디 탐정/오컬트물'; "
+            f"pairing contemplative prose with epic adventure produces '사색적 역사 미스터리').\n"
+            f"In each concept, declare the optimal RECOMMENDED GENRE and clearly explain WHY this genre is the ultimate playground for this specific Voice + Plot collision."
+        )
 
     system_prompt = (
-        "You are an acclaimed master novelist and conceptual architect across diverse genres "
-        "(Martial Arts/무협, Mystery, Thriller, SF, Literary Fiction, Fantasy). "
-        "You synthesize original, captivating novel seed concepts by homaging distinct storytelling DNA. "
-        "CRITICAL SAFEGUARD: Never copy proper nouns, character names, or specific plot sequences from references. "
-        "Strictly obey the user's requested genre without defaulting to generic fantasy."
+        "You are an acclaimed master novelist, genre theorist, and conceptual architect across all literary forms "
+        "(Martial Arts/무협, Mystery, Thriller, SF, Literary Fiction, Cozy Drama, Urban Fantasy). "
+        "You analyze storytelling DNA and synthesize original concepts in the most fitting, unexpected, and commercially brilliant genres. "
+        "CRITICAL SAFEGUARD: Never copy proper nouns, character names, or specific plot sequences from references."
     )
 
     user_prompt = f"""Generate {count} completely original novel seed concepts in {lang.upper()} ('ko' = Korean, 'en' = English).
@@ -126,15 +135,16 @@ REFERENCE CRAFT DNA TO HOMAGE:
 {chr(10).join(mechanics_texts)}
 
 USER'S INITIAL LOGLINE / SEED IDEA (if provided):
-"{idea if idea else '(None provided - brainstorm original premises combining the reference DNAs)'}"
+"{idea if idea else '(None provided - brainstorm original premises combining the reference DNAs in the most synergistic recommended genres)'}"
 
 FOR EACH CONCEPT, PROVIDE:
 NUMBER: <N>
 TITLE: <Evocative, memorable title>
-GENRE: <Genre name>
+GENRE: <Recommended Genre (e.g. 강호 일상 무협, 현대 어반 미스터리, 사색적 SF 등)>
+GENRE RATIONALE: <1-2 sentences explaining why this genre is the absolute best match to unleash the synergy between {voice_ref}'s voice and {plot_ref}'s plot>
 HOOK: <One punchy sentence that hooks the reader instantly>
 HOMAGE MAP: <Explain precisely how the voice of {voice_ref} and plot of {plot_ref} were creatively cross-pollinated>
-WORLD: <Concrete, sensory world details and premise setting appropriate to the genre>
+WORLD: <Concrete, sensory world details and premise setting appropriate to the recommended genre>
 CORE MECHANIC & COST: <The core conflict mechanism, trade-off, martial law, or central investigation rule, and its severe cost or dilemma>
 TENSION: <Personal dilemma vs External/Societal conflict>
 THEME: <A genuine question with no easy answer>
