@@ -1,0 +1,22 @@
+{
+  "name": "leutnant_gustl",
+  "lang": "ko",
+  "volume_count": 1,
+  "total_chapters": 5,
+  "avg_sentence_len": 50.3,
+  "std_sentence_len": 40.0,
+  "dialogue_ratio": 0.0,
+  "sensory_density": 0.0,
+  "vocabulary_wells": [
+    "ich",
+    "der",
+    "ist",
+    "die",
+    "und",
+    "nicht",
+    "das",
+    "da"
+  ],
+  "pov": "1st person",
+  "voice_summary": "순수 내면 독백(interior monologue) 형식. 의식의 흐름(stream of consciousness) 기법으로 서술자의 생각이 외부 자극에 의해 끊임없이 단절·전환된다. 문장은 짧고 충동적이며, 말줄임표(...)와 감탄사가 빈번해 불안하고 산만한 심리 리듬을 만든다. 자기 합리화, 허세, 자기기만이 혼재하며 독자는 화자가 스스로 드러내지 않으려는 진실을 행간에서 읽는다. 반어(irony)가 서술자의 무의식에서 자연 발생한다."
+}

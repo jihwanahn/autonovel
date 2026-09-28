@@ -121,6 +121,8 @@ def main():
                         help="Number of concepts to generate (default: 10)")
     parser.add_argument("--riff", type=str, default=None,
                         help="Riff on an existing idea")
+    parser.add_argument("--select", type=int, default=0,
+                        help="Concept number to save to seed.txt (1-based)")
     args = parser.parse_args()
 
     if not ANTHROPIC_API_KEY:
@@ -136,11 +138,29 @@ def main():
 
     result = call_writer(prompt, max_tokens=8000)
     print(result)
+
+    # 1. Save all generated concepts to candidates.md
+    candidates_file = BASE_DIR / "candidates.md"
+    candidates_file.write_text(f"# Novel Seed Candidates\n\n{result}\n", encoding="utf-8")
     print("\n" + "=" * 60)
-    print("To pick a seed, copy the concept you like into seed.txt:")
-    print("  nano seed.txt")
-    print("Or remix several concepts into your own seed.")
-    print("Then proceed to Step 2 in WORKFLOW.md.")
+    print(f"[+] All generated concepts saved to candidates.md")
+
+    # 2. Split concepts and save to seed.txt
+    import re
+    parts = re.split(r'\n(?=(?:[0-9]+[\.\:]|NUMBER[\:\.]?))', result.strip())
+    concepts = [p.strip() for p in parts if p.strip()]
+
+    seed_file = BASE_DIR / "seed.txt"
+    if args.select > 0 and 1 <= args.select <= len(concepts):
+        seed_file.write_text(concepts[args.select - 1], encoding="utf-8")
+        print(f"[+] Selected Concept #{args.select} saved to seed.txt!")
+    elif not seed_file.exists() and concepts:
+        seed_file.write_text(concepts[0], encoding="utf-8")
+        print(f"[+] (Default) Concept #1 saved to seed.txt.")
+        print("    To change, edit seed.txt or copy from candidates.md.")
+    else:
+        print("[!] Existing seed.txt preserved. Edit seed.txt or re-run with --select=<N>.")
+
 
 
 if __name__ == "__main__":

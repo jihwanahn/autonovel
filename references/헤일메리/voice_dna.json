@@ -1,0 +1,22 @@
+{
+  "name": "헤일메리",
+  "lang": "ko",
+  "volume_count": 1,
+  "total_chapters": 34,
+  "avg_sentence_len": 23.2,
+  "std_sentence_len": 15.7,
+  "dialogue_ratio": 0.252,
+  "sensory_density": 1.49,
+  "vocabulary_wells": [
+    "나는",
+    "내가",
+    "것이다",
+    "말했다",
+    "말한다",
+    "모든",
+    "없다",
+    "다른"
+  ],
+  "pov": "1st person",
+  "voice_summary": "친근하고 자기비하적인 과학자 화자. 내면 독백은 짧고 유머러스하며, 복잡한 과학 개념을 일상적 비유로 즉각 번역하는 습관이 있다. 감정적 격변조차 건조한 관찰자 시선으로 서술하다가 돌연 터지는 방식. 리듬은 짧은 문장과 괄호 속 독백이 교차하며, 독자와의 '공모감'을 형성한다."
+}

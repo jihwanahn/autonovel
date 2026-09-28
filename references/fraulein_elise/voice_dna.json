@@ -1,0 +1,22 @@
+{
+  "name": "fraulein_elise",
+  "lang": "ko",
+  "volume_count": 1,
+  "total_chapters": 6,
+  "avg_sentence_len": 42.1,
+  "std_sentence_len": 34.5,
+  "dialogue_ratio": 0.0,
+  "sensory_density": 0.0,
+  "vocabulary_wells": [
+    "ich",
+    "nicht",
+    "ist",
+    "Ich",
+    "die",
+    "Sie",
+    "und",
+    "der"
+  ],
+  "pov": "1st person (interior monologue / stream of consciousness)",
+  "voice_summary": "자유간접화법과 내면독백이 교차하는 목소리. 외부 대화가 갑작스럽게 내면 사유로 전환되며 독자는 필터 없이 주인공의 의식 흐름에 노출된다. 리듬은 단편적이고 파편적—긴 문장과 짧은 감탄사가 교대하며 심리적 불안정을 모방한다. 자기 검열, 자기 위안, 사회적 가면 유지가 동시에 진행되는 복층 구조. 아이러니와 자조(自嘲)가 전면에 깔려 있고, 냉소와 낭만적 환상이 한 문장 안에서 충돌한다."
+}

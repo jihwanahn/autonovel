@@ -1,7 +1,7 @@
 import json
 import pytest
 from pathlib import Path
-from seed_homage import generate_homage_seeds
+from seed_homage import generate_homage_seeds, save_candidates_and_seed
 
 
 def test_generate_homage_seeds_mock(tmp_path):
@@ -48,3 +48,25 @@ def test_generate_homage_seeds_mock(tmp_path):
     assert "HOOK:" in seeds[0]
     assert "HOMAGE MAP:" in seeds[0]
     assert "SAFE ABSTRACTION CHECK: PASSED" in seeds[0]
+
+
+def test_save_candidates_and_seed_defaults(tmp_path):
+    seeds = ["CONCEPT_1_CONTENT", "CONCEPT_2_CONTENT", "CONCEPT_3_CONTENT"]
+    
+    # 1. Default: seed.txt does not exist -> auto save concept 1, create candidates.md
+    cand_file, seed_file = save_candidates_and_seed(seeds, base_dir=tmp_path, select=0)
+    assert cand_file.exists()
+    assert seed_file.exists()
+    assert "CONCEPT_1_CONTENT" in cand_file.read_text(encoding="utf-8")
+    assert "CONCEPT_3_CONTENT" in cand_file.read_text(encoding="utf-8")
+    assert seed_file.read_text(encoding="utf-8") == "CONCEPT_1_CONTENT"
+
+    # 2. Select specific concept #2
+    cand_file, seed_file = save_candidates_and_seed(seeds, base_dir=tmp_path, select=2)
+    assert seed_file.read_text(encoding="utf-8") == "CONCEPT_2_CONTENT"
+
+    # 3. If seed.txt exists and select=0, preserve existing
+    seed_file.write_text("CUSTOM_USER_SEED", encoding="utf-8")
+    cand_file, seed_file = save_candidates_and_seed(seeds, base_dir=tmp_path, select=0)
+    assert seed_file.read_text(encoding="utf-8") == "CUSTOM_USER_SEED"
+

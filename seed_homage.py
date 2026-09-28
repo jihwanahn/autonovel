@@ -152,9 +152,59 @@ SAFE ABSTRACTION CHECK: PASSED (Affirm that no names or lore from references wer
 """
 
     resp = call_llm(user_prompt, system_prompt, max_tokens=8000)
-    # Split by NUMBER:
-    parts = re.split(r'\n(?=NUMBER:\s*\d+)', resp.strip())
-    return [p.strip() for p in parts if p.strip()]
+    # Split by NUMBER or CONCEPT markers (handles markdown bold/headers)
+    parts = re.split(
+        r'\n(?=(?:#{1,3}\s*CONCEPT\s*\d+|\*{0,2}NUMBER\*{0,2}:?\s*\d+))',
+        resp.strip(),
+        flags=re.IGNORECASE,
+    )
+    clean_parts = [
+        p.strip() for p in parts
+        if re.search(r'(?:CONCEPT\s*\d+|NUMBER\s*[:\.]?\s*\d+)', p, re.IGNORECASE)
+    ]
+    return clean_parts if clean_parts else [resp.strip()]
+
+
+
+def save_candidates_and_seed(
+    seeds: list[str],
+    base_dir: Path,
+    select: int = 0,
+    voice: str = "",
+    plot: str = "",
+    genre: str = "",
+) -> tuple[Path, Path]:
+    # 1. Save all generated concepts to candidates.md
+    candidates_file = base_dir / "candidates.md"
+    md_content = "# Novel Seed Candidates\n\n"
+    if voice:
+        md_content += f"- **Voice Reference**: `{voice}`\n"
+    if plot:
+        md_content += f"- **Plot Reference**: `{plot}`\n"
+    if genre:
+        md_content += f"- **Target Genre**: `{genre}`\n"
+    md_content += f"- **Total Concepts**: {len(seeds)}\n\n---\n\n"
+    for i, s in enumerate(seeds, 1):
+        md_content += f"## Candidate {i}\n\n```text\n{s}\n```\n\n---\n\n"
+    candidates_file.write_text(md_content, encoding="utf-8")
+
+    # 2. Handle seed.txt save
+    seed_file = base_dir / "seed.txt"
+    if select > 0 and 1 <= select <= len(seeds):
+        target_seed = seeds[select - 1]
+        seed_file.write_text(target_seed, encoding="utf-8")
+        print(f"[+] 선택하신 Concept #{select} 가 seed.txt 에 저장되었습니다!")
+    elif not seed_file.exists() and seeds:
+        # Default: auto-select concept #1 if seed.txt doesn't exist
+        seed_file.write_text(seeds[0], encoding="utf-8")
+        print(f"[+] (기본값) Concept #1 이 seed.txt 로 자동 저장되었습니다.")
+        print("    - 다른 후보로 변경하려면: --select=<번호> 로 다시 실행하거나,")
+        print("    - 에디터에서 candidates.md 의 마음에 드는 후보를 복사하여 seed.txt 에 붙여넣으세요.")
+    else:
+        print("[!] 기존 seed.txt 파일이 이미 존재하여 보존되었습니다.")
+        print("    - 이번 후보 중 하나로 교체하려면: --select=<번호> 로 실행하거나 seed.txt 를 직접 편집하세요.")
+
+    return candidates_file, seed_file
 
 
 def main():
@@ -189,13 +239,15 @@ def main():
         print("\n" + "=" * 60)
         print(s)
 
-    if args.select > 0 and 1 <= args.select <= len(seeds):
-        target_seed = seeds[args.select - 1]
-        (BASE_DIR / "seed.txt").write_text(target_seed, encoding="utf-8")
-        print(f"\n[+] Selected Concept #{args.select} saved to seed.txt!")
-    else:
-        print("\n" + "=" * 60)
-        print("To select a concept, copy your favorite into seed.txt, or re-run with --select=<N>.")
+    save_candidates_and_seed(
+        seeds=seeds,
+        base_dir=BASE_DIR,
+        select=args.select,
+        voice=args.voice,
+        plot=args.plot,
+        genre=args.genre,
+    )
+
 
 
 if __name__ == "__main__":

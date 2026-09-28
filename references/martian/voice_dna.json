@@ -1,0 +1,22 @@
+{
+  "name": "martian",
+  "lang": "ko",
+  "volume_count": 1,
+  "total_chapters": 28,
+  "avg_sentence_len": 24.8,
+  "std_sentence_len": 15.7,
+  "dialogue_ratio": 0.221,
+  "sensory_density": 0.84,
+  "vocabulary_wells": [
+    "나는",
+    "말했다",
+    "것이다",
+    "다시",
+    "내가",
+    "그런",
+    "있었다",
+    "다음"
+  ],
+  "pov": "1st person (journal/log entries) interwoven with 3rd limited omniscient (external world scenes)",
+  "voice_summary": "The first-person voice is sardonic, self-deprecating, and hyper-rational — the protagonist deflects existential dread with technical problem-solving and dry wit. Sentences are short and punchy in the log entries; irony is weaponized constantly ('이 행성 최고의 식물학자'). Third-person scenes adopt a cinematic, procedural rhythm — cut-to-cut like a docudrama, building tension through jargon-laden real-time reporting. The tonal contrast between the intimate diary voice and the cold broadcast voice creates emotional whiplash that sustains engagement."
+}
