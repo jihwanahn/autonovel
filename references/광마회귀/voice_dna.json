@@ -1,0 +1,20 @@
+{
+  "name": "광마회귀",
+  "lang": "ko",
+  "avg_sentence_len": 24.1,
+  "std_sentence_len": 15.9,
+  "dialogue_ratio": 0.355,
+  "sensory_density": 1.78,
+  "vocabulary_wells": [
+    "나는",
+    "내가",
+    "말했다",
+    "고개를",
+    "다음에",
+    "있었다",
+    "나를",
+    "채로"
+  ],
+  "pov": "1st person",
+  "voice_summary": "Dry, laconic, and deeply ironic interior monologue from a protagonist who performs nonchalance as armor. The rhythm alternates between terse, punchy self-commentary ('그런 편이지요') and sudden bursts of absurdist logic. The narrator editorializes constantly—self-deprecating yet quietly proud—and the voice is tonally flat precisely when events are most dramatic, creating comedic friction. Chapters are titled like episode headings or meme captions, functioning as micro-punchlines that reframe the chapter's content ironically before it even begins."
+}

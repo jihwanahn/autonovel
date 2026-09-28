@@ -1,0 +1,20 @@
+{
+  "name": "달러구트_꿈_백화점",
+  "lang": "ko",
+  "avg_sentence_len": 28.7,
+  "std_sentence_len": 18.8,
+  "dialogue_ratio": 0.4,
+  "sensory_density": 1.45,
+  "vocabulary_wells": [
+    "페니는",
+    "있었다",
+    "꿈을",
+    "달러구트가",
+    "남자는",
+    "그는",
+    "달러구트",
+    "웨더"
+  ],
+  "pov": "3rd limited",
+  "voice_summary": "Warm, gently comedic third-person narration anchored to a junior protagonist's perspective. The rhythm is unhurried and conversational, punctuated by short, dry observational asides (e.g., noticing mismatched clothing, stomach growls masked by radio noise). Interior monologue is understated — the protagonist's anxieties surface as practical worries rather than dramatic introspection. Supporting characters carry personality through their eccentricities and dialogue rather than exposition. Overall tone: cozy-whimsical with a light undercurrent of workplace social anxiety."
+}

@@ -1,0 +1,13 @@
+# Entertainment & Narrative Mechanics: 달러구트_꿈_백화점
+
+## Core Entertainment Engine
+Irony and gentle humor (a revered senior figure is too distracted by holiday shopping to attend an important industry summit; the protagonist's stomach growls at an inopportune moment). Mystery gaps sustain forward momentum: what is the 'no-show' crisis, and what will happen at the gathering? Character eccentricity functions as world-building shorthand — each supporting figure's quirk (obsessive perfectionism, sentimental domesticity, professional jealousy) reveals industry lore. The cozy fantasy setting acts as a comfort contract with the reader: stakes feel real but never threatening.
+
+## Protagonist & Conflict Dynamics
+Core internal flaw: chronic self-minimization — the protagonist habitually positions themselves as unworthy or unqualified for elevated situations, seeking external permission before claiming space. External motivation: genuine, selfless curiosity and a desire to belong to a world larger than their current role. The tension between these two drives the narrative engine: the protagonist volunteers not to impress but because they authentically want to; this sincerity consistently earns them access they would never demand.
+
+## Turning Points & Pacing
+Tension builds through a series of small inconveniences and social uncertainties rather than high-stakes conflict. The inciting micro-event (an official notice/invitation) arrives mid-scene, disrupting routine and pulling the protagonist out of their comfort zone. A reluctant senior figure bows out, transferring responsibility to the eager junior, which simultaneously validates the protagonist and raises the stakes. Cliffhangers are soft and situational — the chapter closes on physical discomfort and spatial displacement (snow, wrong footwear, unfamiliar territory) that literalizes the protagonist's emotional unpreparedness for what lies ahead.
+
+## Safe Abstraction Formula (Anti-Plagiarism)
+A wide-eyed junior employee at a whimsical, rules-governed specialty shop is unexpectedly invited to accompany their enigmatic mentor to a high-level industry convening. A more senior colleague opts out for domestic reasons, leaving the junior as the unlikely plus-one. En route, mentor and junior trade expository dialogue that reveals a growing industry-wide problem threatening their niche economy. The chapter closes as they arrive at an isolated, unfamiliar venue — the protagonist physically underprepared and socially outmatched — setting up an immersive fish-out-of-water scenario where insider knowledge will be imparted and the protagonist's worldview will expand.
