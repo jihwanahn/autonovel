@@ -56,6 +56,7 @@ def generate_homage_seeds(
     plot_ref: str,
     mechanics_refs: list[str],
     idea: str = "",
+    genre: str = "",
     lang: str = "ko",
     count: int = 5,
     ref_base: Path = None,
@@ -75,26 +76,40 @@ def generate_homage_seeds(
     if mock or not API_KEY:
         results = []
         for i in range(1, count + 1):
+            genre_tag = genre if genre else "판타지/미스터리"
             results.append(f"""NUMBER: {i}
 TITLE: 망각의 유실물 보관소 #{i}
+GENRE: {genre_tag}
 HOOK: 저승의 문턱에서 기억을 잃은 사서가 영혼들이 두고 간 마지막 미련을 역추적한다.
 HOMAGE MAP: Voice from '{voice_ref}' (rhythmic dialogue & dry wit) + Plot from '{plot_ref}' (episodic catharsis & central mystery)
 WORLD: 저승과 이승의 경계에 끝없이 늘어선 서고와 수억 개의 유실물 상자들.
-MAGIC/COST: 유품을 만지면 망자의 기억을 체험할 수 있으나, 자신의 생전 기억이 하나씩 영구 소멸된다.
+CORE MECHANIC & COST: 유품을 만지면 망자의 기억을 체험할 수 있으나, 자신의 생전 기억이 하나씩 영구 소멸된다.
 TENSION: Personal(자신의 잊힌 정체를 찾으려는 갈망) vs Cosmic(저승의 기억 질서 붕괴를 막아야 하는 의무)
 THEME: 인간을 진정으로 인간답게 만드는 것은 행복한 기억인가, 아픈 상처인가?
 SAFE ABSTRACTION CHECK: PASSED (No proper nouns, characters, or specific lore copied from references).
 """)
         return results
 
+    genre_instruction = (
+        f"TARGET GENRE: {genre}\n"
+        f"CRITICAL GENRE RULE: The story MUST belong strictly to the '{genre}' genre. "
+        f"If the genre is non-supernatural (e.g. 현대 미스터리, 스릴러, 일반 드라마), do NOT introduce magic or fantasy elements; "
+        f"if the genre is 무협(Martial Arts), focus on martial sects, internal energy (내공), Jianghu chivalry, and realistic combat; "
+        f"if SF, extrapolate technology and society."
+        if genre else "TARGET GENRE: Harmonize with the reference materials naturally."
+    )
+
     system_prompt = (
-        "You are an acclaimed master novelist and conceptual architect. "
+        "You are an acclaimed master novelist and conceptual architect across diverse genres "
+        "(Martial Arts/무협, Mystery, Thriller, SF, Literary Fiction, Fantasy). "
         "You synthesize original, captivating novel seed concepts by homaging distinct storytelling DNA. "
         "CRITICAL SAFEGUARD: Never copy proper nouns, character names, or specific plot sequences from references. "
-        "Translate abstract craft mechanics into completely original worlds and premises."
+        "Strictly obey the user's requested genre without defaulting to generic fantasy."
     )
 
     user_prompt = f"""Generate {count} completely original novel seed concepts in {lang.upper()} ('ko' = Korean, 'en' = English).
+
+{genre_instruction}
 
 REFERENCE CRAFT DNA TO HOMAGE:
 1. Voice & Stylistic DNA (from '{voice_ref}'):
@@ -116,11 +131,12 @@ USER'S INITIAL LOGLINE / SEED IDEA (if provided):
 FOR EACH CONCEPT, PROVIDE:
 NUMBER: <N>
 TITLE: <Evocative, memorable title>
+GENRE: <Genre name>
 HOOK: <One punchy sentence that hooks the reader instantly>
 HOMAGE MAP: <Explain precisely how the voice of {voice_ref} and plot of {plot_ref} were creatively cross-pollinated>
-WORLD: <Concrete, sensory world details and unusual premise setting>
-MAGIC/COST: <Core speculative or thematic rule, and its devastating cost/limitation>
-TENSION: <Personal dilemma vs Cosmic/World conflict>
+WORLD: <Concrete, sensory world details and premise setting appropriate to the genre>
+CORE MECHANIC & COST: <The core conflict mechanism, trade-off, martial law, or central investigation rule, and its severe cost or dilemma>
+TENSION: <Personal dilemma vs External/Societal conflict>
 THEME: <A genuine question with no easy answer>
 SAFE ABSTRACTION CHECK: PASSED (Affirm that no names or lore from references were copied).
 """
@@ -137,6 +153,7 @@ def main():
     parser.add_argument("--plot", type=str, required=True, help="Reference name for plot DNA")
     parser.add_argument("--mechanics", type=str, default="", help="Comma-separated reference names for mechanics")
     parser.add_argument("--idea", type=str, default="", help="Optional author premise/idea")
+    parser.add_argument("--genre", type=str, default="", help="Target novel genre (e.g. 무협, 판타지, 현대미스터리, SF, 스릴러, 일상드라마)")
     parser.add_argument("--lang", type=str, default="ko", choices=["ko", "en"], help="Target novel language")
     parser.add_argument("--count", type=int, default=5, help="Number of seeds to generate")
     parser.add_argument("--select", type=int, default=0, help="Automatically save seed N (1-based) to seed.txt")
@@ -146,12 +163,14 @@ def main():
     if not mechanics:
         mechanics = [args.voice, args.plot]
 
-    print(f"[*] Synthesizing {args.count} homage seeds (Voice: {args.voice}, Plot: {args.plot})...")
+    genre_msg = f" (Genre: {args.genre})" if args.genre else ""
+    print(f"[*] Synthesizing {args.count} homage seeds{genre_msg} (Voice: {args.voice}, Plot: {args.plot})...")
     seeds = generate_homage_seeds(
         voice_ref=args.voice,
         plot_ref=args.plot,
         mechanics_refs=mechanics,
         idea=args.idea,
+        genre=args.genre,
         lang=args.lang,
         count=args.count,
     )

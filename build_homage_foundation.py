@@ -42,6 +42,7 @@ def build_foundation_docs(
     output_dir: Path,
     voice_ref: str = "",
     plot_ref: str = "",
+    genre: str = "",
     lang: str = "ko",
     mock: bool = False,
 ):
@@ -148,21 +149,26 @@ Include sections:
         part2_voice = "## Part 2: Voice Identity\n\n" + call_llm(part2_prompt, "You are a master literary voice stylist.", 4000)
 
         print("[*] Generating world.md...")
+        genre_header = f"TARGET GENRE: {genre}\n" if genre else ""
         world_prompt = f"""Build complete world bible (WORLD.MD) for this premise in {lang.upper()}:
+{genre_header}
+SEED:
 {seed_text}
-Ensure every speculative rule has a cost/limitation. Concrete, sensory geography.
+Ensure the setting and rules fit the genre. Concrete, sensory geography and societal structures.
 """
-        world_text = call_llm(world_prompt, "You are a fantasy/speculative worldbuilder.", 8000)
+        world_builder_role = f"You are a master {genre} worldbuilder." if genre else "You are a master fiction worldbuilder."
+        world_text = call_llm(world_prompt, world_builder_role, 8000)
 
         print("[*] Generating characters.md...")
         char_prompt = f"""Build characters registry (CHARACTERS.MD) for this novel in {lang.upper()}:
+{genre_header}
 SEED:
 {seed_text}
 WORLD:
 {world_text[:4000]}
 Include Protagonist, Antagonist, and Key Supporting Cast with distinct speech styles and internal/external stakes.
 """
-        characters_text = call_llm(char_prompt, "You are an expert character designer.", 8000)
+        characters_text = call_llm(char_prompt, f"You are an expert character designer specializing in {genre if genre else 'fiction'}.", 8000)
 
         print("[*] Generating outline.md...")
         outline_prompt = f"""Generate a 15-20 chapter OUTLINE.MD in {lang.upper()} using Save the Cat / 3-Act beats.
@@ -205,6 +211,7 @@ def main():
     parser.add_argument("--seed", type=str, default="seed.txt", help="Path to seed.txt")
     parser.add_argument("--voice-ref", type=str, default="", help="Optional reference name for voice DNA")
     parser.add_argument("--plot-ref", type=str, default="", help="Optional reference name for plot DNA")
+    parser.add_argument("--genre", type=str, default="", help="Target novel genre (e.g. 무협, 판타지, 현대미스터리, SF, 스릴러)")
     parser.add_argument("--lang", type=str, default="ko", choices=["ko", "en"], help="Target language")
     parser.add_argument("--inspect", action="store_true", help="Inspect generated planning docs (Review Gate 3)")
     args = parser.parse_args()
@@ -219,6 +226,7 @@ def main():
         output_dir=BASE_DIR,
         voice_ref=args.voice_ref,
         plot_ref=args.plot_ref,
+        genre=args.genre,
         lang=args.lang,
     )
 
